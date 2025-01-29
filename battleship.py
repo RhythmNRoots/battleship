@@ -1,16 +1,18 @@
 def draw_map(grid):
+    """This function prints any grid (empty or containing ships) formed as list of lists into a map, visually more similar to battleship game"""
     for row in grid:
         for element in row:
-            print(element, end = ' ')
-        print('')
-    return grid
+            print(element, end = ' ') # printing each element, of the list (row), ending without new line.
+        print('') # printing a new line, when row is ready
+    return grid # returning the original grid (list of lists)
 
 def adding_ships(grid, coordinates):
-    (first_x, first_y), (second_x, second_y), (third_x, third_y) = coordinates
-    grid[first_x][first_y] = 'x'
+    """This function overwrites any grid with 'x', symbolizing ships at locations, defined by coordinates"""
+    (first_x, first_y), (second_x, second_y), (third_x, third_y) = coordinates # unpacking the coordinates (list of tuples)
+    grid[first_x][first_y] = 'x' # overwriting the grid at specific coordinates
     grid[second_x][second_y] = 'x'
     grid[third_x][third_y] = 'x'
-    return(grid)
+    return(grid) # returning the modified grid (list of lists)
 
 coordinate_test = input('Enter the coordinates of the ships:')
 
