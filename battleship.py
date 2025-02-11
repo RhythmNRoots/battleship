@@ -42,12 +42,11 @@ def ship_coordinate_user():
         coordinate_pair = tuple(coordinate_pair) # Turning coordinate list to tuple
         defined_coordinates[i] = coordinate_pair # Redefining list element
         i = i + 1
-    print(defined_coordinates)
     return(defined_coordinates)
 
 def beginning_of_game():
     """This function initializes the game, by adding the ships to the empty grid, to locations, defined by coordinates."""
-    empty_grid = [['.', '.', '.'], ['.', '.', '.'], ['.', '.', '.']]
+    empty_grid = [['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.']]
     ship_coordinates_user = ship_coordinate_user()
     # later the coordinates should be a result of an input --> ship_coordinates_user = input('Enter the coordinates of the ships: ')
     # and then the input should be converted to a list of tuples (containing integers)
