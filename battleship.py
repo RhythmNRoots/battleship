@@ -15,7 +15,7 @@ def adding_ships(grid, coordinates):
     return(grid) # returning the modified grid (list of lists)
 
 def ship_coordinate_user():
-    defined_coordinates = input('Enter the coordinates of the ships (In this format (x1,y1), (x2,y2)):')
+    defined_coordinates = input('Enter the coordinates of three ships (In this format (x1,y1), (x2,y2), (x3, y3)):')
     
     # Splitting input string into a list (if no space between ')' and ',' )
     if '),' in defined_coordinates:
