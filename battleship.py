@@ -1,3 +1,5 @@
+import random
+
 def draw_map(grid):
     """This function prints any grid (empty or containing ships) formed as list of lists into a map, visually more similar to battleship game"""
     for row in grid:
@@ -8,6 +10,7 @@ def draw_map(grid):
 
 def adding_ships(grid, coordinates):
     """This function overwrites any grid with 'x', symbolizing ships at locations, defined by coordinates"""
+    #Here the number of ships should be defined,  number of coordinate should match
     (first_x, first_y), (second_x, second_y), (third_x, third_y) = coordinates # unpacking the coordinates (list of tuples)
     grid[first_x][first_y] = 'x' # overwriting the grid at specific coordinates
     grid[second_x][second_y] = 'x'
@@ -44,13 +47,26 @@ def ship_coordinate_user():
         i = i + 1
     return(defined_coordinates)
 
+def ship_coordinate_computer():
+    computer_coordinates = []
+    for ships in range(3):
+        ship_coordinate = (random.randrange(10), random.randrange(10))
+        computer_coordinates.append(ship_coordinate)
+    return(computer_coordinates)
+
 def beginning_of_game():
     """This function initializes the game, by adding the ships to the empty grid, to locations, defined by coordinates."""
-    empty_grid = [['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.']]
+    empty_grid_for_user = [['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.']]
+    empty_grid_for_computer = [['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.']]
     ship_coordinates_user = ship_coordinate_user()
+    ship_coordinates_computer = ship_coordinate_computer()
     # later the coordinates should be a result of an input --> ship_coordinates_user = input('Enter the coordinates of the ships: ')
     # and then the input should be converted to a list of tuples (containing integers)
-    user_grid = adding_ships(empty_grid, ship_coordinates_user)
+    user_grid = adding_ships(empty_grid_for_user, ship_coordinates_user)
+    print("_user_")
     draw_map(user_grid)
+    computer_grid = adding_ships(empty_grid_for_computer, ship_coordinates_computer)
+    print("_computer_")
+    draw_map(computer_grid)
 
 beginning_of_game()
