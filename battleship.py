@@ -16,10 +16,10 @@ def adding_ships(grid, coordinates):
         grid[y][x] = 'x' # overwriting the grid at specific coordinates
     return(grid) # returning the modified grid (list of lists)
 
-def getting_ship_coordinates_user():
+def getting_ship_coordinates_user(number_of_ships):
     """This function asks for an input from the user and converts the input to a list of tuple of integers, which are the coordinates for the user's ships during the game"""
     # Asking for an input to define all ship coordinates (variable contains a string at this point)
-    user_ship_coordinates_all = input('Enter the coordinates of three ships (In this format (x1,y1), (x2,y2), (x3, y3)):')
+    user_ship_coordinates_all = input(f'Enter the coordinates of {number_of_ships} ships (In this format (x1,y1), (x2,y2), (x3, y3),...):')
     
     # Splitting input string into a list (if no space between ')' and ',' )
     if '),' in user_ship_coordinates_all:
@@ -57,10 +57,10 @@ def getting_ship_coordinates_user():
         i = i + 1
     return(user_ship_coordinates_all)
 
-def getting_ship_coordinates_computer():
+def getting_ship_coordinates_computer(number_of_ships):
     """This function randomly selects the coordinates for the computer's ships and creates a list of tuples of integers"""
     computer_ship_coordinates_all = [] # Creating the empty list
-    for ships in range(3): # Iteration for the number of ships
+    for ships in range(number_of_ships): # Iteration for the number of ships
         ship_coordinates = (random.randrange(10), random.randrange(10)) # Random number (0-9) in a tuple
         while ship_coordinates in computer_ship_coordinates_all: # While the random coordinates are already used
             ship_coordinates = (random.randrange(10), random.randrange(10)) # Redefining ship coordinates (Random number (0-9) in a tuple)
@@ -71,8 +71,16 @@ def beginning_of_game():
     """This function initializes the game, by adding the ships to the empty grid, to locations, defined by coordinates."""
     empty_grid_for_user = [['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.']]
     empty_grid_for_computer = [['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.']]
-    ship_coordinates_user = getting_ship_coordinates_user()
-    ship_coordinates_computer = getting_ship_coordinates_computer()
+    while True:
+        selected_ship_number = input('How many ships do you want to play with? ')
+        try:
+            selected_ship_number = int(selected_ship_number)
+            break
+        except ValueError:
+            print('Please enter an integer.')
+    ship_coordinates_user = getting_ship_coordinates_user(selected_ship_number)
+    ship_coordinates_computer = getting_ship_coordinates_computer(selected_ship_number)
+    
     user_grid = adding_ships(empty_grid_for_user, ship_coordinates_user)
     print("_user_")
     draw_map(user_grid)
