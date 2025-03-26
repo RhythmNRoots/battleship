@@ -11,10 +11,9 @@ def draw_map(grid):
 def adding_ships(grid, coordinates):
     """This function overwrites any grid with 'x', symbolizing ships at locations, defined by coordinates"""
     #Here the number of ships should be defined,  number of coordinate should match
-    (first_x, first_y), (second_x, second_y), (third_x, third_y) = coordinates # unpacking the coordinates (list of tuples)
-    grid[first_x][first_y] = 'x' # overwriting the grid at specific coordinates
-    grid[second_x][second_y] = 'x'
-    grid[third_x][third_y] = 'x'
+    for element in coordinates: # looping through all coordinates
+        (x, y) = element # unpacking the coordinates
+        grid[y][x] = 'x' # overwriting the grid at specific coordinates
     return(grid) # returning the modified grid (list of lists)
 
 def getting_ship_coordinates_user():
