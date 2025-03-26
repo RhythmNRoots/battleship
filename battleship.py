@@ -41,7 +41,14 @@ def getting_ship_coordinates_user():
         ship_coordinates = ship_coordinates.split(',') 
         j = 0 # counter of coordinate (x, y)
         for coordinate in ship_coordinates:
-            coordinate = int(coordinate) # Turning defined coordinate to integer
+            try:
+                coordinate = int(coordinate) # Turning defined coordinate to integer
+            except ValueError:
+                raise ValueError('Please enter only integers as coordinates.') # If coordinate is not an integer error is raised and the program is ended.
+            if 0 <= coordinate <= 9:
+                pass
+            else:
+                raise ValueError('Coordinate is not in expected range.') # If number is not in range (0-9) error is raised and the program is ended.
             ship_coordinates[j] = coordinate # Redefining list element
             j = j + 1
         ship_coordinates = tuple(ship_coordinates) # Turning coordinate list to tuple
