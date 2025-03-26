@@ -17,51 +17,52 @@ def adding_ships(grid, coordinates):
     grid[third_x][third_y] = 'x'
     return(grid) # returning the modified grid (list of lists)
 
-def ship_coordinate_user():
-    defined_coordinates = input('Enter the coordinates of three ships (In this format (x1,y1), (x2,y2), (x3, y3)):')
+def getting_ship_coordinates_user():
+    """This function asks for an input from the user and converts the input to a list of tuple of integers, which are the coordinates for the user's ships during the game"""
+    # Asking for an input to define all ship coordinates (variable contains a string at this point)
+    user_ship_coordinates_all = input('Enter the coordinates of three ships (In this format (x1,y1), (x2,y2), (x3, y3)):')
     
     # Splitting input string into a list (if no space between ')' and ',' )
-    if '),' in defined_coordinates:
-        defined_coordinates = defined_coordinates.split('),')
+    if '),' in user_ship_coordinates_all:
+        user_ship_coordinates_all = user_ship_coordinates_all.split('),')
     # Splitting input string into a list (if there is space between ')' and ',' )
-    elif ') ,' in defined_coordinates:
-        defined_coordinates = defined_coordinates.split(') ,')
+    elif ') ,' in user_ship_coordinates_all:
+        user_ship_coordinates_all = user_ship_coordinates_all.split(') ,')
     
     #Turning input coordinates into list of tuples (containing integers)
-    i=0 # counter of coordinate pairs
-    for coordinate_pair in defined_coordinates:
+    i=0 # counter of x-y coordinates
+    for ship_coordinates in user_ship_coordinates_all:
         # Stripping white space, '(' and ')' from all coordinate pairs
-        coordinate_pair = coordinate_pair.strip()
-        coordinate_pair = coordinate_pair.strip('(')
-        coordinate_pair = coordinate_pair.strip(')')
+        ship_coordinates = ship_coordinates.strip()
+        ship_coordinates = ship_coordinates.strip('(')
+        ship_coordinates = ship_coordinates.strip(')')
         
         # Splitting coordinate pair string into a list
-        coordinate_pair = coordinate_pair.split(',') 
+        ship_coordinates = ship_coordinates.split(',') 
         j = 0 # counter of coordinate (x, y)
-        for coordinate in coordinate_pair:
+        for coordinate in ship_coordinates:
             coordinate = int(coordinate) # Turning defined coordinate to integer
-            coordinate_pair[j] = coordinate # Redefining list element
+            ship_coordinates[j] = coordinate # Redefining list element
             j = j + 1
-        coordinate_pair = tuple(coordinate_pair) # Turning coordinate list to tuple
-        defined_coordinates[i] = coordinate_pair # Redefining list element
+        ship_coordinates = tuple(ship_coordinates) # Turning coordinate list to tuple
+        user_ship_coordinates_all[i] = ship_coordinates # Redefining list element
         i = i + 1
-    return(defined_coordinates)
+    return(user_ship_coordinates_all)
 
-def ship_coordinate_computer():
-    computer_coordinates = []
-    for ships in range(3):
-        ship_coordinate = (random.randrange(10), random.randrange(10))
-        computer_coordinates.append(ship_coordinate)
+def getting_ship_coordinates_computer():
+    """This function randomly selects the coordinates for the computer's ships and creates a list of tuples of integers"""
+    computer_coordinates = [] # Creating the empty list
+    for ships in range(3): # Iteration for the number of ships
+        ship_coordinate = (random.randrange(10), random.randrange(10)) # Random number (0-9) in a tuple
+        computer_coordinates.append(ship_coordinate) # Appending the coordinate pair to the list
     return(computer_coordinates)
 
 def beginning_of_game():
     """This function initializes the game, by adding the ships to the empty grid, to locations, defined by coordinates."""
     empty_grid_for_user = [['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.']]
     empty_grid_for_computer = [['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.'], ['.', '.', '.', '.', '.', '.', '.', '.', '.', '.']]
-    ship_coordinates_user = ship_coordinate_user()
-    ship_coordinates_computer = ship_coordinate_computer()
-    # later the coordinates should be a result of an input --> ship_coordinates_user = input('Enter the coordinates of the ships: ')
-    # and then the input should be converted to a list of tuples (containing integers)
+    ship_coordinates_user = getting_ship_coordinates_user()
+    ship_coordinates_computer = getting_ship_coordinates_computer()
     user_grid = adding_ships(empty_grid_for_user, ship_coordinates_user)
     print("_user_")
     draw_map(user_grid)
