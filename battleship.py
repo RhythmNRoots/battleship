@@ -52,17 +52,21 @@ def getting_ship_coordinates_user():
             ship_coordinates[j] = coordinate # Redefining list element
             j = j + 1
         ship_coordinates = tuple(ship_coordinates) # Turning coordinate list to tuple
+        if ship_coordinates in user_ship_coordinates_all:
+            raise ValueError(f'Coordinate {ship_coordinates} is already occupied.')
         user_ship_coordinates_all[i] = ship_coordinates # Redefining list element
         i = i + 1
     return(user_ship_coordinates_all)
 
 def getting_ship_coordinates_computer():
     """This function randomly selects the coordinates for the computer's ships and creates a list of tuples of integers"""
-    computer_coordinates = [] # Creating the empty list
+    computer_ship_coordinates_all = [] # Creating the empty list
     for ships in range(3): # Iteration for the number of ships
-        ship_coordinate = (random.randrange(10), random.randrange(10)) # Random number (0-9) in a tuple
-        computer_coordinates.append(ship_coordinate) # Appending the coordinate pair to the list
-    return(computer_coordinates)
+        ship_coordinates = (random.randrange(10), random.randrange(10)) # Random number (0-9) in a tuple
+        while ship_coordinates in computer_ship_coordinates_all: # While the random coordinates are already used
+            ship_coordinates = (random.randrange(10), random.randrange(10)) # Redefining ship coordinates (Random number (0-9) in a tuple)
+        computer_ship_coordinates_all.append(ship_coordinates) # Appending the coordinate pair to the list
+    return(computer_ship_coordinates_all)
 
 def beginning_of_game():
     """This function initializes the game, by adding the ships to the empty grid, to locations, defined by coordinates."""
