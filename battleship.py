@@ -1,4 +1,5 @@
 import random
+import time
 
 
 def draw_map(grid):
@@ -90,6 +91,31 @@ def getting_ship_coordinates_computer(number_of_ships):
     return computer_ship_coordinates_all
 
 
+def get_user_shooting_coordinates():
+    while True:
+        user_shooting_coordinates_str = input(
+            "Enter the coordinates for the target. In format (x, y)"
+        )
+        try:
+            user_shooting_coordinates = eval(user_shooting_coordinates_str)
+            if (
+                isinstance(user_shooting_coordinates, tuple)
+                and len(user_shooting_coordinates) == 2
+                and 0 <= user_shooting_coordinates[0] < 10
+                and 0 <= user_shooting_coordinates[1] < 10
+            ):
+                break
+        except:
+            print("Please enter the coordinates in format (x, y)")
+
+    return user_shooting_coordinates
+
+
+def get_computer_shooting_coordinates():
+    computer_shooting_coordinates = (random.randrange(10), random.randrange(10))
+    return computer_shooting_coordinates
+
+
 def beginning_of_game():
     """This function initializes the game, by adding the ships to the empty grid, to locations, defined by coordinates."""
     empty_grid_for_user = [
@@ -116,6 +142,8 @@ def beginning_of_game():
         [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
         [".", ".", ".", ".", ".", ".", ".", ".", ".", "."],
     ]
+
+    # First: Deciding the number of ships and the coordinates for user and computer
     while True:
         selected_ship_number = input("How many ships do you want to play with? ")
         try:
@@ -126,12 +154,39 @@ def beginning_of_game():
     ship_coordinates_user = getting_ship_coordinates_user(selected_ship_number)
     ship_coordinates_computer = getting_ship_coordinates_computer(selected_ship_number)
 
+    # Second: drawing the game
     user_grid = adding_ships(empty_grid_for_user, ship_coordinates_user)
     print("_user_")
     draw_map(user_grid)
     computer_grid = adding_ships(empty_grid_for_computer, ship_coordinates_computer)
     print("_computer_")
     draw_map(computer_grid)
+
+    # Third: shooting
+    while True:
+        user_shooting_coords = get_user_shooting_coordinates()
+        print(f"User shoots at position {user_shooting_coords}")
+        if user_shooting_coords in ship_coordinates_computer:
+            ship_coordinates_computer.remove(user_shooting_coords)
+            print("  -> It was a hit!")
+        else:
+            print("  -> It was a miss!")
+        if len(ship_coordinates_computer) == 0:
+            print("All opponents ships have been destoryed, you have won!")
+            break
+
+        time.sleep(2)
+
+        computer_shooting_coords = get_computer_shooting_coordinates()
+        print(f"Computer shoots at position {computer_shooting_coords}")
+        if computer_shooting_coords in ship_coordinates_user:
+            ship_coordinates_user.remove(computer_shooting_coords)
+            print("  -> It was a hit!")
+        else:
+            print("  -> It was a miss!")
+        if len(ship_coordinates_user) == 0:
+            print("All opponents ships have been destoryed, the computer has won!")
+            break
 
 
 beginning_of_game()
