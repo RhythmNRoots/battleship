@@ -169,8 +169,12 @@ def beginning_of_game():
         if user_shooting_coords in ship_coordinates_computer:
             ship_coordinates_computer.remove(user_shooting_coords)
             print("  -> It was a hit!")
+            number_of_ships_left = len(ship_coordinates_computer)
+            print(f"The computer has still {number_of_ships_left} ships left")
         else:
             print("  -> It was a miss!")
+            number_of_ships_left = len(ship_coordinates_computer)
+            print(f"The computer has still {number_of_ships_left} ships left")
         if len(ship_coordinates_computer) == 0:
             print("All opponents ships have been destoryed, you have won!")
             break
@@ -182,8 +186,12 @@ def beginning_of_game():
         if computer_shooting_coords in ship_coordinates_user:
             ship_coordinates_user.remove(computer_shooting_coords)
             print("  -> It was a hit!")
+            number_of_ships_left = len(ship_coordinates_user)
+            print(f"You still have {number_of_ships_left} ships left")
         else:
             print("  -> It was a miss!")
+            number_of_ships_left = len(ship_coordinates_user)
+            print(f"You still have {number_of_ships_left} ships left")
         if len(ship_coordinates_user) == 0:
             print("All opponents ships have been destoryed, the computer has won!")
             break
